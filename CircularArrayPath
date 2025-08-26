@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class CircularArrayPath {
+    public static void main(String[] args) {
+        if (args.length < 4) {
+            System.out.println("Требуется 4 аргумента: n1 m1 n2 m2");
+            return;
+        }
+        
+        int n1 = Integer.parseInt(args[0]);
+        int m1 = Integer.parseInt(args[1]);
+        int n2 = Integer.parseInt(args[2]);
+        int m2 = Integer.parseInt(args[3]);
+        
+        List<Integer> path1 = generatePath(n1, m1);
+        List<Integer> path2 = generatePath(n2, m2);
+        
+        StringBuilder result = new StringBuilder();
+        for (int num : path1) result.append(num);
+        for (int num : path2) result.append(num);
+        
+        System.out.println(result.toString());
+    }
+    
+    private static List<Integer> generatePath(int n, int m) {
+        List<Integer> path = new ArrayList<>();
+        if (n <= 0) return path;
+        
+        int current = 1;
+        do {
+            path.add(current);
+            current = (current + m - 1) % n;
+            if (current == 0) current = n;
+        } while (current != 1);
+        
+        return path;
+    }
+}
